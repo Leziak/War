@@ -82,8 +82,8 @@ let shuffle = (array) => {
 }
 
 const newGame = () => {
-    document.getElementById("play").disabled = false; 
-    document.querySelector('p').innerHTML = `You have a deck of size ${player1.length} and stack of size ${stack1.length}.<br>The opponent has a deck of size ${player2.length} and stack of size ${stack2.length}`;   
+    document.getElementById("play").disabled = false;
+    document.querySelector('p').innerHTML = `You have a deck of size ${player1.length} and stack of size ${stack1.length}.<br>The opponent has a deck of size ${player2.length} and stack of size ${stack2.length}`;
     document.querySelector('h1').innerHTML = '';
     player1 = [], player2 = [];
     for (let key in cards) {
@@ -109,14 +109,26 @@ const resolve = () => {
     cards[play1] > cards[play2] ? stack1.unshift(...board) : cards[play2] > cards[play1] ? stack2.unshift(...board) : war();
 }
 
+const win = () => {
+    document.querySelector('h1').innerHTML = 'You win!';
+    document.getElementById("play").disabled = true;
+    document.querySelector('#card1').src = `img/svg-cards/black_joker.svg`;
+    document.querySelector('#card2').src = `img/svg-cards/red_joker.svg`;
+}
+
+const lose = () => {
+    document.querySelector('h1').innerHTML = "You lose!";
+    document.getElementById("play").disabled = true;
+    document.querySelector('#card1').src = `img/svg-cards/black_joker.svg`;
+    document.querySelector('#card2').src = `img/svg-cards/red_joker.svg`;
+}
+
 const winLoseHandler = () => {
     if (player2.length === 0 && stack2.length === 0) {
-        document.querySelector('h1').innerHTML = 'You win!';
-        document.getElementById("play").disabled = true;        
+        win();
         return;
     } else if (player1.length === 0 && stack1.length === 0) {
-        document.querySelector('h1').innerHTML = "You lose!";
-        document.getElementById("play").disabled = true;
+        lose();
         return;
     }
     if (player1.length === 0) {
@@ -134,12 +146,10 @@ const winLoseHandler = () => {
 const war = () => {
     for (let i = 0; i < 3; i++) {
         if (player2.length === 0 && stack2.length === 0) {
-            document.querySelector('h1').innerHTML = 'You win!';
-            document.getElementById("play").disabled = true;
+            win();
             return;
         } else if (player1.length === 0 && stack1.length === 0) {
-            document.querySelector('h1').innerHTML = "You lose!";
-            document.getElementById("play").disabled = true;
+            lose();
             return;
         }
         if (player1.length === 0) {
