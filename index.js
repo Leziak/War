@@ -61,6 +61,7 @@ let player1 = [],
     stack2 = [];
 let play1, play2;
 
+//yeah, I copied this from stack overflow.
 let shuffle = (array) => {
     let currentIndex = array.length,
         temporaryValue, randomIndex;
